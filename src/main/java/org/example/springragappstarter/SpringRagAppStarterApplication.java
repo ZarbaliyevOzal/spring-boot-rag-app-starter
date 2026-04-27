@@ -1,5 +1,6 @@
 package org.example.springragappstarter;
 
+import org.example.springragappstarter.service.AiAgent;
 import org.example.springragappstarter.service.RagService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,7 @@ public class SpringRagAppStarterApplication {
     }
 
     @Bean
-    CommandLineRunner runner(RagService ragService) {
+    CommandLineRunner runner(RagService ragService, AiAgent aiAgent) {
         return args -> {
             String document = "Spring Boot is an open-source Java-based framework used to create microservices,"
                 + " web applications, and enterprise applications. It is built on top of the Spring Framework" 
@@ -34,6 +35,9 @@ public class SpringRagAppStarterApplication {
             String answer = ragService.ask(question);
             
             System.out.println("Answer: " + answer);
+
+            // ask agent to use tool
+            aiAgent.handle("What is the weather in New York?");
         };
     }
 
